@@ -41,10 +41,9 @@ export default class Application {
     // -Call the next middleware in the stack.
     _passRequest = (mwIndex, req, res) => {
         const self = this;
-        let mw = this.middleware.length >= mwIndex;
-        mw = this.middleware[mwIndex];
-        if (mw) {
-            mw.handleRequest(req, res, function next() {
+        this.middleware[mwIndex];
+        if (this.middleware[mwIndex]) {
+            this.middleware[mwIndex].handleRequest(req, res, function next() {
                 self._passRequest(mwIndex + 1, req, res);
             });
             return true;
@@ -52,6 +51,7 @@ export default class Application {
         return false;
     }
 
+    // creats request and response context, and delegates request to middlewares
     _handleRequest = (method, url, socket) => {
         const req = { method, url }, res = createResponse(socket);
         let handled = this._passRequest(0, req, res);
@@ -61,6 +61,7 @@ export default class Application {
         }
     }
 
+    // breaks header line from stream up to abstract http method and url
     _getRequestHeaderParts(stream) {
         let headers = stream.getHeaders().split('\n');
         let pathParts = headers[0].split(' ');
@@ -70,6 +71,7 @@ export default class Application {
         }
     }
 
+    // handles a connection to the server
     _onConnect = (socket) => {
         const self = this;
         stats.conn++;

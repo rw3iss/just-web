@@ -1849,10 +1849,9 @@ ${content}`;
     };
     _passRequest = (mwIndex, req, res) => {
       const self = this;
-      let mw = this.middleware.length >= mwIndex;
-      mw = this.middleware[mwIndex];
-      if (mw) {
-        mw.handleRequest(req, res, function next() {
+      this.middleware[mwIndex];
+      if (this.middleware[mwIndex]) {
+        this.middleware[mwIndex].handleRequest(req, res, function next() {
           self._passRequest(mwIndex + 1, req, res);
         });
         return true;

@@ -26,6 +26,10 @@ JustJS must be used with linux (or Docker), see repo above. To use this with the
     RUN sudo npm install nodemon esbuild -g
     ##################
 
+Then enter the container, and in the terminal install the app preqrequsities:
+
+    npm install
+
 Then start the nodemon development watcher and esbuilder with:
 
     npm run dev
