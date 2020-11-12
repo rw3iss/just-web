@@ -1,0 +1,22 @@
+{
+  "name": "just-web",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "dev": "nodemon --watch ./src --exec \"npm run build && npm start\"",
+    "build": "esbuild src/server.js --bundle '--define:process.env.NODE_ENV=\"development\"' --outfile=build/server.js --external:just",
+    "start": "just build/server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "eventbusjs": "^0.2.0",
+    "flatten": "^1.0.3",
+    "nanoajax": "^0.4.3",
+    "url": "^0.11.0"
+  }
+}
