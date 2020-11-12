@@ -1,19 +1,19 @@
 
 # What This Is:
     
-    Example for the [JustJS](https://github.com/just-js/just[https://github.com/just-js/just) V8 JavaScript application technology (basically a much faster NodeJS alternative).
+Example for the [JustJS](https://github.com/just-js/just[https://github.com/just-js/just) V8 JavaScript application technology (basically a much faster NodeJS alternative).
     
 # Note
     
-    This library is very primitive and not intended for usage yet, but basically works.
+This library is very primitive and not intended for usage yet, but basically works.
     
 # How to use:
 
-    copy this repository into a folder within the above JustJS repository's /examples folder.
+Copy this repository into a folder within the above JustJS repository's /examples folder.
 
-    Navigate to the folder and 'npm start' to start the existing server.
+Navigate to the folder and 'npm start' to start the existing server.
 
-    Edit the src/server.js code (and whatever src/lib code) to suit your application's needs (see below for development).
+Edit the src/server.js code (and whatever src/lib code) to suit your application's needs (see below for development).
 
      
 # To develop locally:
