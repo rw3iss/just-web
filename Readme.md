@@ -41,19 +41,19 @@ See src/server.js for an example of how to initiailize a simple application with
 
 # Features / Notes about this library:
 
-* You can implement basic middleware, see src/lib/middleware.js for the api, basically just pass an object that implements handleResponse(res, res), and then pass that to yourApp.use(yourMiddleware).
-* It's built with efficiency in mind, using only what's necessary (Application -> Router -> Response), all with only necessary implementation helpers.
+* You can implement basic middleware, see src/lib/middleware.js for the api, basically just pass an object that implements handleResponse(req, res), and then pass that to yourApp.use(yourMiddleware).
+* It's built with efficiency in mind, using only what's necessary (Application -> Router -> Response), all with only necessary implementation helpers. Classes are not used unless (only for application startup and non-performant sections) to keep code minimal.
 * The built-in router uses a trie, the fastest implementation.
 * All the configuration and data access is indexed and loaded at app startup, for fastest lookup and response from those method calls.
 
 # API 😬
 
     Application {
-        use(Middleware);    //register middleware to handle requests
+        use(Middleware);    // register middleware to handle requests
         start();            // creates server and listens for requests
         stop();
     }
-
+    
     Middleware {
         handleRequest(Request, Response, next);
     }
@@ -64,9 +64,12 @@ See src/server.js for an example of how to initiailize a simple application with
     }
 
     Response {
-        send(string, status = 200); // writes and ends connection
-        json(object, status = 200); // stringifies json and sends
-        end(status = 200);          // just closes the connection
+        html(html, status = 200);
+        text(text, status = 200);
+        json(object, status = 200);
+        error(error, status = 500);
+        favicon(favicon);
+        end(status = 200);
     }
 
     Router {
@@ -79,7 +82,8 @@ See src/server.js for an example of how to initiailize a simple application with
 
 
 # TODO:
-* Populate Request object with headers
+* Make onCon
+* Populate Request object with body and headers
 * Add simple application config file support
-* Implement Cookie handling
-* Add extended modules (CORS?)
+* Implement Cookie handling...
+* Add extended modules (CORS?)...

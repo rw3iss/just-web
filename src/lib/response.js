@@ -1,29 +1,42 @@
-const maxPipelines = 256; // todo: put in config or #define 
-import { getHttpPhrase } from './utils/httpcodes';
+//import { getHttpPhrase } from './utils/httpcodes';
+
+// TODO: Add status code support
 
 function Response(socket) {
     this.socket = socket;
     return this;
 }
 
-Response.prototype.send = function(content, status = 200) {
-    let r = `HTTP/1.1 ${status} ${getHttpPhrase(status)}\r\nContent-Length: ${content.length}\r\n\r\n${content}`;
-    let buf = ArrayBuffer.fromString(r.repeat(maxPipelines));
+Response.prototype.html = function(html, status = 200) {
+    if (this.socket.html(html) < 0) just.error((new SystemError('sock.html')).stack)
+    this.socket.close();
+};
 
-    if (this.socket.write(buf, r.length) <= 0) 
-        return;
-
+Response.prototype.text = function(text, status = 200) {
+    if (this.socket.text(text) < 0) just.error((new SystemError('sock.text')).stack)
     this.socket.close();
 };
 
 Response.prototype.json = function(object, status = 200) {
     let jm = JSON.stringify(object); // todo: use safe-stringify?
-    this.send(jm);
+    if (this.socket.json(jm) < 0) just.error((new SystemError('sock.json')).stack)
+    this.socket.close();
 }
 
-Response.prototype.end = function(status = 200) {
-    this.send('', status);
+Response.prototype.favicon = function(favicon) {
+    if (this.socket.favicon(favicon) < 0) just.error((new SystemError('sock.favicon')).stack)
     this.socket.close();
+}
+
+// Todo: add status code support
+Response.prototype.error = function(error, status = 500) {
+    if (this.socket.error(error) < 0) just.error((new SystemError('sock.error')).stack)
+    this.socket.close();
+}
+
+// Todo: necessary?
+Response.prototype.end = function(status = 200) {
+    this.text('', status);
 }
 
 function createResponse(socket) {

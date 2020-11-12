@@ -1,6 +1,6 @@
 import TrieRouter from './lib/index';
 import Middleware from '../middleware';
-import url from 'url';
+import url from '../../../node_modules/url'; // todo: find better implementation or don't use library
 const { print } = just;
 
 const router = new TrieRouter();
@@ -39,6 +39,8 @@ export default class Router extends Middleware {
 
     // For internal use only
     static handleRequest(req, res, next) {
+        print("Router::handleRequest: " + req.url);
+        // todo: find more efficient implementation of url.parse
         var match = router.match(url.parse(req.url).pathname)
         if (!match) {
             print("404: " + req.url);
