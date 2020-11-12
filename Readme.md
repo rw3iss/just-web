@@ -1,7 +1,7 @@
 
 # What This Is:
     
-Example for the [JustJS](https://github.com/just-js/just[https://github.com/just-js/just) V8 JavaScript application technology (basically a much faster NodeJS alternative).
+A small basic web application library/example written for the [JustJS](https://github.com/just-js/just) V8 JavaScript technology (basically a much faster NodeJS alternative).
     
 # Note
     
