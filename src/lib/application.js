@@ -10,19 +10,23 @@ let qps = 0;
 
 export default class Application {
 
+    // middleware stack
     middleware = [];
 
+    // register a middleware
     use = (middleware) => {
         this.middleware.push(middleware);
         return this;
     }
 
+    // start the server and listen
     start = () => {
         print("Starting server...");
         createServer(this._onConnect.bind(this)).listen();
         return this;
     }
 
+    // stop the server
     stop = () => {
         // todo: implement killing existing connections
     }
