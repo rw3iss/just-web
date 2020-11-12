@@ -46,7 +46,7 @@ See src/server.js for an example of how to initiailize a simple application with
 * The built-in router uses a trie, the fastest implementation.
 * All the configuration and data access is indexed and loaded at app startup, for fastest lookup and response from those method calls.
 
-# API 😬
+# API:
 
     Application {
         use(Middleware);    // register middleware to handle requests
@@ -82,7 +82,7 @@ See src/server.js for an example of how to initiailize a simple application with
 
 
 # TODO:
-* Make onCon
+* Have Application::onConnect not populate the socket methods for every request (move to helper class or prototype)
 * Populate Request object with body and headers
 * Add simple application config file support
 * Implement Cookie handling...
