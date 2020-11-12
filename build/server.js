@@ -735,12 +735,8 @@
       this.socket = socket;
       return this;
     }
-    function _get_brief(status) {
-      return getHttpPhrase(status);
-    }
-    Response.prototype.send = function(content, status = StatusCodes.OK) {
-      let brief = _get_brief(status);
-      let r = `HTTP/1.1 ${status} ${brief}\r
+    Response.prototype.send = function(content, status = 200) {
+      let r = `HTTP/1.1 ${status} ${getHttpPhrase(status)}\r
 Content-Length: ${content.length}\r
 \r
 ${content}`;
@@ -1833,66 +1829,6 @@ ${content}`;
   }
   _loadCodes();
 
-  // src/lib/utils/StatusCodes.ts
-  var StatusCodes;
-  (function(StatusCodes2) {
-    StatusCodes2[StatusCodes2["ACCEPTED"] = 202] = "ACCEPTED";
-    StatusCodes2[StatusCodes2["BAD_GATEWAY"] = 502] = "BAD_GATEWAY";
-    StatusCodes2[StatusCodes2["BAD_REQUEST"] = 400] = "BAD_REQUEST";
-    StatusCodes2[StatusCodes2["CONFLICT"] = 409] = "CONFLICT";
-    StatusCodes2[StatusCodes2["CONTINUE"] = 100] = "CONTINUE";
-    StatusCodes2[StatusCodes2["CREATED"] = 201] = "CREATED";
-    StatusCodes2[StatusCodes2["EXPECTATION_FAILED"] = 417] = "EXPECTATION_FAILED";
-    StatusCodes2[StatusCodes2["FAILED_DEPENDENCY"] = 424] = "FAILED_DEPENDENCY";
-    StatusCodes2[StatusCodes2["FORBIDDEN"] = 403] = "FORBIDDEN";
-    StatusCodes2[StatusCodes2["GATEWAY_TIMEOUT"] = 504] = "GATEWAY_TIMEOUT";
-    StatusCodes2[StatusCodes2["GONE"] = 410] = "GONE";
-    StatusCodes2[StatusCodes2["HTTP_VERSION_NOT_SUPPORTED"] = 505] = "HTTP_VERSION_NOT_SUPPORTED";
-    StatusCodes2[StatusCodes2["IM_A_TEAPOT"] = 418] = "IM_A_TEAPOT";
-    StatusCodes2[StatusCodes2["INSUFFICIENT_SPACE_ON_RESOURCE"] = 419] = "INSUFFICIENT_SPACE_ON_RESOURCE";
-    StatusCodes2[StatusCodes2["INSUFFICIENT_STORAGE"] = 507] = "INSUFFICIENT_STORAGE";
-    StatusCodes2[StatusCodes2["INTERNAL_SERVER_ERROR"] = 500] = "INTERNAL_SERVER_ERROR";
-    StatusCodes2[StatusCodes2["LENGTH_REQUIRED"] = 411] = "LENGTH_REQUIRED";
-    StatusCodes2[StatusCodes2["LOCKED"] = 423] = "LOCKED";
-    StatusCodes2[StatusCodes2["METHOD_FAILURE"] = 420] = "METHOD_FAILURE";
-    StatusCodes2[StatusCodes2["METHOD_NOT_ALLOWED"] = 405] = "METHOD_NOT_ALLOWED";
-    StatusCodes2[StatusCodes2["MOVED_PERMANENTLY"] = 301] = "MOVED_PERMANENTLY";
-    StatusCodes2[StatusCodes2["MOVED_TEMPORARILY"] = 302] = "MOVED_TEMPORARILY";
-    StatusCodes2[StatusCodes2["MULTI_STATUS"] = 207] = "MULTI_STATUS";
-    StatusCodes2[StatusCodes2["MULTIPLE_CHOICES"] = 300] = "MULTIPLE_CHOICES";
-    StatusCodes2[StatusCodes2["NETWORK_AUTHENTICATION_REQUIRED"] = 511] = "NETWORK_AUTHENTICATION_REQUIRED";
-    StatusCodes2[StatusCodes2["NO_CONTENT"] = 204] = "NO_CONTENT";
-    StatusCodes2[StatusCodes2["NON_AUTHORITATIVE_INFORMATION"] = 203] = "NON_AUTHORITATIVE_INFORMATION";
-    StatusCodes2[StatusCodes2["NOT_ACCEPTABLE"] = 406] = "NOT_ACCEPTABLE";
-    StatusCodes2[StatusCodes2["NOT_FOUND"] = 404] = "NOT_FOUND";
-    StatusCodes2[StatusCodes2["NOT_IMPLEMENTED"] = 501] = "NOT_IMPLEMENTED";
-    StatusCodes2[StatusCodes2["NOT_MODIFIED"] = 304] = "NOT_MODIFIED";
-    StatusCodes2[StatusCodes2["OK"] = 200] = "OK";
-    StatusCodes2[StatusCodes2["PARTIAL_CONTENT"] = 206] = "PARTIAL_CONTENT";
-    StatusCodes2[StatusCodes2["PAYMENT_REQUIRED"] = 402] = "PAYMENT_REQUIRED";
-    StatusCodes2[StatusCodes2["PERMANENT_REDIRECT"] = 308] = "PERMANENT_REDIRECT";
-    StatusCodes2[StatusCodes2["PRECONDITION_FAILED"] = 412] = "PRECONDITION_FAILED";
-    StatusCodes2[StatusCodes2["PRECONDITION_REQUIRED"] = 428] = "PRECONDITION_REQUIRED";
-    StatusCodes2[StatusCodes2["PROCESSING"] = 102] = "PROCESSING";
-    StatusCodes2[StatusCodes2["PROXY_AUTHENTICATION_REQUIRED"] = 407] = "PROXY_AUTHENTICATION_REQUIRED";
-    StatusCodes2[StatusCodes2["REQUEST_HEADER_FIELDS_TOO_LARGE"] = 431] = "REQUEST_HEADER_FIELDS_TOO_LARGE";
-    StatusCodes2[StatusCodes2["REQUEST_TIMEOUT"] = 408] = "REQUEST_TIMEOUT";
-    StatusCodes2[StatusCodes2["REQUEST_TOO_LONG"] = 413] = "REQUEST_TOO_LONG";
-    StatusCodes2[StatusCodes2["REQUEST_URI_TOO_LONG"] = 414] = "REQUEST_URI_TOO_LONG";
-    StatusCodes2[StatusCodes2["REQUESTED_RANGE_NOT_SATISFIABLE"] = 416] = "REQUESTED_RANGE_NOT_SATISFIABLE";
-    StatusCodes2[StatusCodes2["RESET_CONTENT"] = 205] = "RESET_CONTENT";
-    StatusCodes2[StatusCodes2["SEE_OTHER"] = 303] = "SEE_OTHER";
-    StatusCodes2[StatusCodes2["SERVICE_UNAVAILABLE"] = 503] = "SERVICE_UNAVAILABLE";
-    StatusCodes2[StatusCodes2["SWITCHING_PROTOCOLS"] = 101] = "SWITCHING_PROTOCOLS";
-    StatusCodes2[StatusCodes2["TEMPORARY_REDIRECT"] = 307] = "TEMPORARY_REDIRECT";
-    StatusCodes2[StatusCodes2["TOO_MANY_REQUESTS"] = 429] = "TOO_MANY_REQUESTS";
-    StatusCodes2[StatusCodes2["UNAUTHORIZED"] = 401] = "UNAUTHORIZED";
-    StatusCodes2[StatusCodes2["UNAVAILABLE_FOR_LEGAL_REASONS"] = 451] = "UNAVAILABLE_FOR_LEGAL_REASONS";
-    StatusCodes2[StatusCodes2["UNPROCESSABLE_ENTITY"] = 422] = "UNPROCESSABLE_ENTITY";
-    StatusCodes2[StatusCodes2["UNSUPPORTED_MEDIA_TYPE"] = 415] = "UNSUPPORTED_MEDIA_TYPE";
-    StatusCodes2[StatusCodes2["USE_PROXY"] = 305] = "USE_PROXY";
-  })(StatusCodes || (StatusCodes = {}));
-
   // src/lib/application.js
   const {createResponse} = require_response();
   const maxPipeline = 256;
@@ -1988,6 +1924,7 @@ ${content}`;
   const router = new lib_default();
   class Router extends Middleware {
     static get(path, handler) {
+      print3("get: " + path);
       var node = router.define(path)[0];
       node.GET = node.GET || [];
       node.GET.push(handler);
@@ -2002,15 +1939,15 @@ ${content}`;
       node.PUT = node.PUT || [];
       node.PUT.push(handler);
     }
-    static delete(path, handler) {
-      var node = router.define(path)[0];
-      node.DELETE = node.DELETE || [];
-      node.DELETE.push(handler);
-    }
     static patch(path, handler) {
       var node = router.define(path)[0];
       node.PATCH = node.PATCH || [];
       node.PATCH.push(handler);
+    }
+    static delete(path, handler) {
+      var node = router.define(path)[0];
+      node.DELETE = node.DELETE || [];
+      node.DELETE.push(handler);
     }
     static handleRequest(req, res, next) {
       var match = router.match(url.default.parse(req.url).pathname);
@@ -2024,23 +1961,27 @@ ${content}`;
         print3("405...");
         return;
       }
+      print3("callbacks...");
+      print3(callbacks.length);
       callbacks.forEach((c) => {
+        print3("C: " + typeof c);
         c(req, res);
       });
       next();
     }
-    static dispatcher(req, res, next) {
-    }
   }
 
   // src/server.js
+  let app = new Application();
   Router.get("/test", function(req, res) {
     let data = {
       something: "test"
     };
     res.json(data);
   });
-  let app = new Application();
+  Router.get("/", function(req, res) {
+    res.send("Home!");
+  });
   app.use(Router);
   app.start();
 })();

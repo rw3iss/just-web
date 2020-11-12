@@ -12,9 +12,9 @@ Router.get('/test', function(req, res) {
     res.json(data);
 });
 
-Router.get('/'), function(req, res) {
+Router.get('/', function(req, res) {
     res.send('Home!');
-}
+});
 
 app.use(Router);
 

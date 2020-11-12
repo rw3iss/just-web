@@ -1,25 +1,13 @@
 const maxPipelines = 256; // todo: put in config or #define 
 import { getHttpPhrase } from './utils/httpcodes';
-import { StatusCodes } from './utils/StatusCodes';
 
 function Response(socket) {
     this.socket = socket;
     return this;
 }
 
-// const code_briefs = {
-//     400: "OK",
-//     403
-// }
-
-function _get_brief(status) {
-    //const brief 
-    return getHttpPhrase(status);
-}
-
-Response.prototype.send = function(content, status = StatusCodes.OK) {
-    let brief = _get_brief(status);
-    let r = `HTTP/1.1 ${status} ${brief}\r\nContent-Length: ${content.length}\r\n\r\n${content}`;
+Response.prototype.send = function(content, status = 200) {
+    let r = `HTTP/1.1 ${status} ${getHttpPhrase(status)}\r\nContent-Length: ${content.length}\r\n\r\n${content}`;
     let buf = ArrayBuffer.fromString(r.repeat(maxPipelines));
 
     if (this.socket.write(buf, r.length) <= 0) 
