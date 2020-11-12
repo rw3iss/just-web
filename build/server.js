@@ -1924,7 +1924,6 @@ ${content}`;
   const router = new lib_default();
   class Router extends Middleware {
     static get(path, handler) {
-      print3("get: " + path);
       var node = router.define(path)[0];
       node.GET = node.GET || [];
       node.GET.push(handler);
@@ -1961,10 +1960,7 @@ ${content}`;
         print3("405...");
         return;
       }
-      print3("callbacks...");
-      print3(callbacks.length);
       callbacks.forEach((c) => {
-        print3("C: " + typeof c);
         c(req, res);
       });
       next();
